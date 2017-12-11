@@ -104,7 +104,8 @@ public class MainActivity extends AppCompatActivity {
 
                     if(firstLetter.equalsIgnoreCase(category)) {
                         voiceInput.append("\n" + result.get(0));
-                        score += 1;
+                        int scoreAmount = result.get(0).length();
+                        score += scoreAmount;
                         scoreDisplay.setText(Integer.toString(score));
                     } else {
                         Toast.makeText(getApplicationContext(), "INCORRECT, TRY AGAIN", Toast.LENGTH_SHORT).show();
@@ -119,13 +120,14 @@ public class MainActivity extends AppCompatActivity {
     private void startGame() {
         category = catChoice.getSelectedItem().toString();
 
-        countDownTimer = new CountDownTimer(60000, 1000) {
+        countDownTimer = new CountDownTimer(90000, 1000) {
 
             public void onTick(long millisUntilFinished) {
                 countdownDisplay.setText("Seconds Remaining: " + millisUntilFinished / 1000 + "s");
             }
 
             public void onFinish() {
+                speakButton.setClickable(false);
                 countdownDisplay.setText("Time's Up!");
             }
         }.start();
@@ -138,14 +140,16 @@ public class MainActivity extends AppCompatActivity {
         voiceInput.setText("");
         countDownTimer.cancel();
         countdownDisplay.setText("Seconds Remaining: 60s");
+        speakButton.setClickable(true);
 
-        countDownTimer = new CountDownTimer(60000, 1000) {
+        countDownTimer = new CountDownTimer(90000, 1000) {
 
             public void onTick(long millisUntilFinished) {
                 countdownDisplay.setText("Seconds Remaining: " + millisUntilFinished / 1000 + "s");
             }
 
             public void onFinish() {
+
                 countdownDisplay.setText("Time's Up!");
             }
         };
